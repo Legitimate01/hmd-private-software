@@ -98,7 +98,7 @@ formData.get("txid")
 try{
 
 await fetch(
-"https://script.google.com/macros/s/AKfycbw4YsbjiKx9GBwGJQ-_vbgG2hoXpoR9OJy2Uzu0iAuFtFB-uIIBfSC6dDw1tfhIID_KBQ/exec",
+"https://script.google.com/macros/s/AKfycbwkwDL8YFx_gENaGGsUWjgHh0jzxyRvOqfkI4Yo-AcxpslyfZRlD9teYN-ri-xbx0e9/exec",
 {
 method:"POST",
 body:JSON.stringify(data)
