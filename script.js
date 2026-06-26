@@ -265,3 +265,26 @@ document.body.style.opacity =
 
 }
 );
+
+/* =========================
+   FORM SUBMIT LOADING STATE
+========================= */
+
+const paymentForm = document.getElementById("paymentForm");
+const submitBtn = document.getElementById("submitBtn");
+const buttonText = document.getElementById("buttonText");
+const loadingSpinner = document.getElementById("loadingSpinner");
+
+if (paymentForm && submitBtn) {
+
+    paymentForm.addEventListener("submit", function () {
+
+        submitBtn.disabled = true;
+
+        buttonText.textContent = "Submitting...";
+
+        loadingSpinner.style.display = "inline-block";
+
+    });
+
+}
