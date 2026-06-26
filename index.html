@@ -458,12 +458,17 @@ Submit your payment details after completing your transaction.
     </div>
 
     <button
-        type="submit"
-        class="btn btn-lg btn-dark btn-block">
+    type="submit"
+    id="submitBtn"
+    class="btn btn-lg btn-dark btn-block">
 
+    <span id="buttonText">
         Submit Payment Confirmation
+    </span>
 
-    </button>
+    <span id="loadingSpinner" class="spinner" style="display:none;"></span>
+
+</button>
 
 </form>
 <p class="verification-note">
