@@ -449,7 +449,7 @@ overflow:hidden;
     width:100%;
     background:none;
     border:none;
-    color:#fff;
+    color:#D1B200;
     text-align:left;
     padding:22px;
     font-size:18px;
@@ -459,11 +459,9 @@ overflow:hidden;
 }
 
 .faq-answer{
-    display:none;
-    padding:18px 22px;
-    color:#cfd6e4;
-    line-height:1.8;
-    border-top:1px solid rgba(255,255,255,.08);
+display:none;
+background:#132338;
+padding:20px;
 }
 
 /* =========================
