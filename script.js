@@ -1,290 +1,218 @@
+/* ======================================================
+   HMD SOFTWARE
+   CLEAN SCRIPT.JS
+====================================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* =====================================
+       SMOOTH SCROLLING
+    ===================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", function (e) {
+
+            const target = document.querySelector(this.getAttribute("href"));
+
+            if (!target) return;
+
+            e.preventDefault();
+
+            target.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        });
+
+    });
+
+    /* =====================================
+       COPY WALLET ADDRESS
+    ===================================== */
+
+    const copyButton = document.getElementById("copyWalletBtn");
+    const walletAddress = document.getElementById("walletAddress");
+
+    if (copyButton && walletAddress) {
+
+        copyButton.addEventListener("click", async () => {
+
+            try {
+
+                await navigator.clipboard.writeText(walletAddress.textContent.trim());
+
+                copyButton.textContent = "Copied ✓";
+
+                showNotification("Wallet address copied successfully.");
+
+                setTimeout(() => {
+
+                    copyButton.textContent = "Copy Address";
+
+                }, 2000);
+
+            } catch (error) {
+
+                showNotification("Unable to copy the wallet address.");
+
+            }
+
+        });
+
+    }
+
+    /* =====================================
+       FAQ ACCORDION
+    ===================================== */
+
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach(item => {
+
+        const question = item.querySelector(".faq-question");
+
+        question.addEventListener("click", () => {
+
+            faqItems.forEach(other => {
+
+                if (other !== item) {
+
+                    other.classList.remove("active");
+
+                }
+
+            });
+
+            item.classList.toggle("active");
+
+        });
+
+    });
+
+    /* =====================================
+       PAYMENT FORM LOADING
+    ===================================== */
+
+    const paymentForm = document.getElementById("paymentForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const buttonText = document.getElementById("buttonText");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+
+    if (paymentForm && submitBtn) {
+
+        paymentForm.addEventListener("submit", () => {
+
+            submitBtn.disabled = true;
+
+            buttonText.textContent = "Submitting...";
+
+            loadingSpinner.style.display = "inline-block";
+
+        });
+
+    }
+    /* =====================================
+       SCROLL REVEAL ANIMATION
+    ===================================== */
+
+    const revealElements = document.querySelectorAll(
+        ".feature-card, .pricing-card, .testimonial-card, .payment-card, .qr-card, .contact-card"
+    );
+
+    function revealOnScroll() {
+
+        const triggerPoint = window.innerHeight * 0.9;
+
+        revealElements.forEach(element => {
+
+            const top = element.getBoundingClientRect().top;
+
+            if (top < triggerPoint) {
+
+                element.classList.add("show");
+
+            }
+
+        });
+
+    }
+
+    revealOnScroll();
+
+    window.addEventListener("scroll", revealOnScroll);
+
+    /* =====================================
+       ACTIVE NAVIGATION
+    ===================================== */
+
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-links a");
+
+    window.addEventListener("scroll", () => {
+
+        let current = "";
+
+        sections.forEach(section => {
+
+            const sectionTop = section.offsetTop - 150;
+
+            if (window.scrollY >= sectionTop) {
+
+                current = section.getAttribute("id");
+
+            }
+
+        });
+
+        navLinks.forEach(link => {
+
+            link.classList.remove("active");
+
+            if (link.getAttribute("href") === "#" + current) {
+
+                link.classList.add("active");
+
+            }
+
+        });
+
+    });
+
+}); // END DOMContentLoaded
+
+
 /* =====================================
-   HMD PRIVATE SOFTWARE COMPANY
-   SCRIPT.JS
+   TOAST NOTIFICATION
 ===================================== */
-
-/* COPY WALLET ADDRESS */
-
-const copyBtn = document.getElementById("copyWalletBtn");
-const walletAddress = document.getElementById("walletAddress");
-
-if (copyBtn && walletAddress) {
-
-copyBtn.addEventListener("click", () => {
-
-navigator.clipboard.writeText(walletAddress.innerText);
-
-copyBtn.innerText = "Copied!";
-
-setTimeout(() => {
-
-copyBtn.innerText = "Copy Address";
-
-}, 2000);
-
-showNotification(
-"Wallet address copied successfully."
-);
-
-});
-
-}
-
-/* FAQ ACCORDION */
-
-const faqQuestions =
-document.querySelectorAll(".faq-question");
-
-faqQuestions.forEach(question => {
-
-question.addEventListener("click", () => {
-
-const answer =
-question.nextElementSibling;
-
-const isOpen =
-answer.style.display === "block";
-
-document
-.querySelectorAll(".faq-answer")
-.forEach(item => {
-
-item.style.display = "none";
-
-});
-
-if (!isOpen) {
-
-answer.style.display = "block";
-
-}
-
-});
-
-});
-
-/* PAYMENT FORM */
-
-showNotification(
-"Payment confirmation submitted successfully."
-);
-
-paymentForm.reset();
-
-}catch(error){
-
-showNotification(
-"Submission failed. Please try again."
-);
-
-}
-
-});
-
-}
-
-/* SCROLL ANIMATION */
-
-const revealElements =
-document.querySelectorAll(
-".feature-card, .pricing-card, .testimonial-card, .payment-card, .qr-card"
-);
-
-const revealOnScroll = () => {
-
-revealElements.forEach(element => {
-
-const windowHeight =
-window.innerHeight;
-
-const elementTop =
-element.getBoundingClientRect().top;
-
-if (elementTop < windowHeight - 80) {
-
-element.style.opacity = "1";
-
-element.style.transform =
-"translateY(0px)";
-
-}
-
-});
-
-};
-
-revealElements.forEach(element => {
-
-element.style.opacity = "0";
-element.style.transform =
-"translateY(40px)";
-element.style.transition =
-"all 0.6s ease";
-
-});
-
-window.addEventListener(
-"scroll",
-revealOnScroll
-);
-
-revealOnScroll();
-
-/* NOTIFICATION SYSTEM */
 
 function showNotification(message) {
 
-let notification =
-document.createElement("div");
+    const notification = document.createElement("div");
 
-notification.innerText =
-message;
+    notification.className = "toast-notification";
 
-notification.style.position =
-"fixed";
+    notification.textContent = message;
 
-notification.style.bottom =
-"30px";
+    document.body.appendChild(notification);
 
-notification.style.right =
-"30px";
+    setTimeout(() => {
 
-notification.style.background =
-"#d4af37";
+        notification.classList.add("show");
 
-notification.style.color =
-"#07111f";
+    }, 50);
 
-notification.style.padding =
-"14px 20px";
+    setTimeout(() => {
 
-notification.style.borderRadius =
-"10px";
+        notification.classList.remove("show");
 
-notification.style.fontWeight =
-"600";
+        setTimeout(() => {
 
-notification.style.boxShadow =
-"0 10px 30px rgba(0,0,0,.3)";
+            notification.remove();
 
-notification.style.zIndex =
-"9999";
+        }, 300);
 
-notification.style.opacity =
-"0";
-
-notification.style.transition =
-"all .3s ease";
-
-document.body.appendChild(
-notification
-);
-
-setTimeout(() => {
-
-notification.style.opacity = "1";
-
-}, 100);
-
-setTimeout(() => {
-
-notification.style.opacity = "0";
-
-setTimeout(() => {
-
-notification.remove();
-
-}, 300);
-
-}, 3000);
-
-}
-
-/* ACTIVE NAVIGATION */
-
-const sections =
-document.querySelectorAll("section");
-
-const navLinks =
-document.querySelectorAll(
-".nav-links a"
-);
-
-window.addEventListener(
-"scroll",
-() => {
-
-let current = "";
-
-sections.forEach(section => {
-
-const sectionTop =
-section.offsetTop;
-
-if (
-pageYOffset >= sectionTop - 200
-) {
-
-current =
-section.getAttribute("id");
-
-}
-
-});
-
-navLinks.forEach(link => {
-
-link.classList.remove(
-"active"
-);
-
-if (
-link.getAttribute("href") ===
-`#${current}`
-) {
-
-link.classList.add(
-"active"
-);
-
-}
-
-});
-
-}
-);
-
-/* PRELOADER EFFECT */
-
-window.addEventListener(
-"load",
-() => {
-
-document.body.style.opacity =
-"1";
-
-}
-);
-
-/* =========================
-   FORM SUBMIT LOADING STATE
-========================= */
-
-const paymentForm = document.getElementById("paymentForm");
-const submitBtn = document.getElementById("submitBtn");
-const buttonText = document.getElementById("buttonText");
-const loadingSpinner = document.getElementById("loadingSpinner");
-
-if (paymentForm && submitBtn) {
-
-    paymentForm.addEventListener("submit", function () {
-
-        submitBtn.disabled = true;
-
-        buttonText.textContent = "Submitting...";
-
-        loadingSpinner.style.display = "inline-block";
-
-    });
+    }, 2500);
 
 }
