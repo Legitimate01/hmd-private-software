@@ -63,33 +63,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
-    /* =====================================
-       FAQ ACCORDION
-    ===================================== */
+    /* ==========================
+   FAQ ACCORDION
+========================== */
 
-    const faqItems = document.querySelectorAll(".faq-item");
+const faqItems = document.querySelectorAll(".faq-item");
 
-    faqItems.forEach(item => {
+faqItems.forEach(item => {
 
-        const question = item.querySelector(".faq-question");
+    const question = item.querySelector(".faq-question");
+    const answer = item.querySelector(".faq-answer");
 
-        question.addEventListener("click", () => {
+    answer.style.display = "none";
 
-            faqItems.forEach(other => {
+    question.addEventListener("click", () => {
 
-                if (other !== item) {
+        const isOpen = answer.style.display === "block";
 
-                    other.classList.remove("active");
-
-                }
-
-            });
-
-            item.classList.toggle("active");
-
+        // Close all answers
+        faqItems.forEach(faq => {
+            faq.querySelector(".faq-answer").style.display = "none";
         });
 
+        // Open clicked answer
+        if (!isOpen) {
+            answer.style.display = "block";
+        }
+
     });
+
+});
 
     /* =====================================
        PAYMENT FORM LOADING
