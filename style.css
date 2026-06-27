@@ -628,3 +628,87 @@ font-size:14px;
     cursor:not-allowed;
 
 }
+
+/* =========================
+   FAQ ACCORDION
+========================= */
+
+.faq-answer{
+
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .35s ease;
+
+}
+
+.faq-item.active .faq-answer{
+
+    max-height:400px;
+
+}
+
+/* =========================
+   TOAST NOTIFICATION
+========================= */
+
+.toast-notification{
+
+    position:fixed;
+    bottom:25px;
+    right:25px;
+
+    background:#d4af37;
+    color:#081422;
+
+    padding:14px 20px;
+
+    border-radius:8px;
+
+    font-weight:600;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    transition:.3s ease;
+
+    z-index:9999;
+
+}
+
+.toast-notification.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+/* =========================
+   SCROLL REVEAL
+========================= */
+
+.feature-card,
+.pricing-card,
+.testimonial-card,
+.payment-card,
+.qr-card,
+.contact-card{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:.6s ease;
+
+}
+
+.show{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
